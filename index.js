@@ -15,13 +15,14 @@ let players = {};
 let next_id = 0;
 
 io.on('connection', function(socket) {
+  console.log(socket.id);
   socket.on('newplayer', function(msg, fn) {
     players[next_id] = msg.name;
     fn(next_id);
     next_id++;
     console.dir(players);
 
-    socket.emit('playerupdate', players);
+    io.emit('playerupdate', players);
   });
   socket.on('ring', function(msg) {
     console.log("ring from "+ msg.id + "!");

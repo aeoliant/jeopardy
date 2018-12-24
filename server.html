@@ -22,7 +22,7 @@
         var socket = io();
         socket.on('playerupdate', function(players) {
           console.log(players);
-          $('#text').text(players.join(', '));
+          $('#text').text(JSON.stringify(players));
         });
       });
     </script>
