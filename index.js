@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
@@ -10,6 +11,16 @@ app.get('/client/*', function(req, res){
 app.get('/server', function(req, res){
   res.sendFile(__dirname + '/server.html');
 });
+
+app.get('/jeopardy', function(req, res){
+  res.sendFile(__dirname + '/single.html');
+});
+
+app.get('/double', function(req, res){
+  res.sendFile(__dirname + '/double.html');
+});
+
+app.use('/static', express.static(__dirname + '/static'));
 
 let players = {};
 let next_id = 0;
