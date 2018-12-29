@@ -51,7 +51,7 @@
         border: 5px solid #111;
         font-family: 'Swiss 721';
         color: #FAFAFA;
-        text-shadow: 3px 3px 3px #222;
+        text-shadow: 5px 7px 3px #111;
         font-weight: bold;
       }
       td {
@@ -104,7 +104,7 @@
             <th>Random questions about America</th>
             <th>"Quotes" are in quotes</th>
             <th>Short</th>
-            <th>Really really really really really long category</th>
+            <th>Decently long category</th>
             <th>Test Category</th>
         </tr>
     </thead>
@@ -125,6 +125,7 @@
         if (clueShowing) {
           console.log('hidden')
           $(evt.target).parent().attr("class", "hidden");
+          $(evt.target).parent().parent().text('')
           clueShowing = false;
         }
         evt.stopPropagation();
