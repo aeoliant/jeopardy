@@ -81,7 +81,6 @@
         align-items: center;
         background-color: #060CE9;
         color: #FFF;
-        letter-spacing: normal;
       }
       @font-face {
         font-family: 'Swiss 911';
@@ -110,8 +109,8 @@
         </tr>
     </thead>
     <tbody>
-      <tr><td>$200<div class="hidden"><p>Test clue, please ignore</p></div></td><td>$200</td><td>$200</td><td>$200</td><td>$200</td><td>$200</td></tr>
-      <tr><td>$400</td><td>$400</td><td>$400</td><td>$400</td><td>$400</td><td>$400</td></tr>
+      <tr><td>$200<div class="hidden"><img src="/static/dailydouble.png" data-clue="This is a daily double"></img></div></td><td>$200</td><td>$200</td><td>$200</td><td>$200</td><td>$200</td></tr>
+      <tr><td>$400<div class="hidden"><p>A clue about something trivial</p></div></td><td>$400</td><td>$400</td><td>$400</td><td>$400</td><td>$400</td></tr>
       <tr><td>$600</td><td>$600</td><td>$600</td><td>$600</td><td>$600</td><td>$600</td></tr>
       <tr><td>$800</td><td>$800</td><td>$800</td><td>$800</td><td>$800</td><td>$800</td></tr>
       <tr><td>$1000</td><td>$1000</td><td>$1000</td><td>$1000</td><td>$1000</td><td>$1000</td></tr>
@@ -128,6 +127,26 @@
           $(evt.target).parent().attr("class", "hidden");
           $(evt.target).parent().parent().text('')
           clueShowing = false;
+        }
+        evt.stopPropagation();
+      });
+
+      $(".hidden img").click((evt) => {
+        if (clueShowing) {
+          console.log('daily double')
+          var clue = $(evt.target).attr("data-clue");
+          console.log(clue);
+          var newClue = $(evt.target).parent().append('<p>' + clue + '<p>');
+          $(evt.target).remove();
+          newClue.click((evt) => {
+            if (clueShowing) {
+              console.log('daily double hidden')
+              $(evt.target).parent().attr("class", "hidden");
+              $(evt.target).parent().parent().text('')
+              clueShowing = false;
+            }
+            evt.stopPropagation();
+          });
         }
         evt.stopPropagation();
       });

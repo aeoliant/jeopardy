@@ -16,8 +16,8 @@ app.get('/jeopardy', function(req, res){
   res.sendFile(__dirname + '/single.html');
 });
 
-app.get('/double', function(req, res){
-  res.sendFile(__dirname + '/double.html');
+app.get('/final', function(req, res){
+  res.sendFile(__dirname + '/final.html');
 });
 
 app.use('/static', express.static(__dirname + '/static'));

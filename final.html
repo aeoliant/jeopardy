@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Final Jeopardy</title>
+    <style type="text/css">
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+	      width: 100vw;
+        margin: 0;
+        text-transform: uppercase;
+        background-color: #060CE9;
+        text-align: center;
+      }
+      .category {
+        flex-grow: 1;
+        font-size: 275px;
+        padding: 40px;
+        font-family: 'Swiss 911 Header';
+        color: #FFF;
+        text-shadow: 5px 5px 15px #000;
+        line-height: 1;
+        font-weight: 100;
+      }
+      .hidden {
+        display: none;
+      }
+      .clue {
+        font-family: 'ITC Korinna';
+        color: #FFF;
+        font-size: 100px;
+        text-shadow: 5px 7px 3px #111;
+      }
+      @font-face {
+        font-family: 'Swiss 911 Header';
+        src: url('/static/swiss-911-header.woff') format('woff');
+      }
+      @font-face {
+        font-family: 'ITC Korinna';
+        src: url('/static/Korinna-Regular.otf');
+      }
+    </style>
+  </head>
+  <body>
+    <p class="category">Months that start with Feb</p>
+    <p class="clue hidden">This is the second month of the year</p>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(() => {
+        $(".category").click((evt) => {
+          $(evt.target).toggleClass('hidden');
+          $(".clue").toggleClass('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>
