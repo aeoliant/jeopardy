@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Jeopardy Client</title>
     <style type="text/css">
       body {
@@ -13,20 +13,36 @@
         height: 100vh;
 	      width: 100vw;
         margin: 0;
+        overflow: hidden;
       }
       button {
-        font-size: 100px;
+        font-size: 40px;
+        height: 75vh;
+	      width: 75vw;
+      }
+      #status {
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+      }
+      .connected {
+        background-color: green;
+      }
+      .disconnected {
+        background-color: red;
       }
     </style>
   </head>
   <body>
-    <button id="ring">BOOM</button>
+    <button id="ring" disabled>BUZZ</button>
+    <div id="status" class="disconnected"></div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function() {
         var socket = io();
         var ID;
+        var SUPERBUZZERON = false;
         socket.emit(
           'newplayer',
           { name: window.location.href.substr(window.location.href.lastIndexOf('/') + 1) },
@@ -36,6 +52,30 @@
         });
         $("#ring").click(function() {
           socket.emit('ring', {id: ID});
+          $("#ring").prop( "disabled", true );
+          setTimeout(() => {
+            if (SUPERBUZZERON) {
+              $("#ring").prop( "disabled", false );
+            }
+          }, 250);
+        });
+
+        socket.on('connect', () => {
+          $("#status").attr('class', 'connected');
+        });
+        socket.on('reconnect', () => {
+          $("#status").attr('class', 'connected');
+        });
+        socket.on('disconnect', (reason) => {
+          $("#status").attr('class', 'disconnected');
+        });
+        socket.on('buzzeron', function(msg) {
+          SUPERBUZZERON = true;
+          $("#ring").prop( "disabled", false );
+        });
+        socket.on('buzzeroff', function(msg) {
+          SUPERBUZZERON = false;
+          $("#ring").prop( "disabled", true );
         });
       });
     </script>

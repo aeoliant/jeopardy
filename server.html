@@ -14,19 +14,29 @@
 	      width: 100vw;
         margin: 0;
       }
+      button {
+        height: 30vh;
+	      width: 30vw;
+        margin: 15px;
+        font-size: 35px;
+      }
     </style>
   </head>
   <body>
-    <div id="text"></div>
+    <button id="buzzeron">Buzzers On</button>
+    <button id="buzzeroff">Buzzers Off</button>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function() {
         var socket = io();
-        socket.on('playerupdate', function(players) {
-          console.log(players);
-          $('#text').text(JSON.stringify(players));
+        $("#buzzeron").click(function() {
+          socket.emit('buzzeron');
         });
+        $("#buzzeroff").click(function() {
+          socket.emit('buzzeroff');
+        });
+
       });
     </script>
   </body>
