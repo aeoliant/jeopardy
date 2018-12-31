@@ -45,14 +45,15 @@
         border-top: 0;
       }
       th {
-        font-size: 35px;
-        padding: 50px;
+        font-size: 60px;
+        padding: 40px;
         width: 16.66%;
         border: 5px solid #111;
-        font-family: 'Helvetica Neue';
-        color: #FAFAFA;
-        text-shadow: 4px 4px 3px #111;
-        font-weight: 900;
+        font-family: 'Swiss 911 Header';
+        color: #FFF;
+        text-shadow: 3px 3px 10px #111;
+        line-height: 1;
+        font-weight: 100;
       }
       td {
         width: 16.66%;
@@ -80,15 +81,14 @@
         align-items: center;
         background-color: #060CE9;
         color: #FFF;
-        letter-spacing: normal;
       }
       @font-face {
         font-family: 'Swiss 911';
         src: url('/static/swiss-911.woff') format('woff');
       }
       @font-face {
-        font-family: 'Swiss 721';
-        src: url('/static/swiss-721.woff') format('woff');
+        font-family: 'Swiss 911 Header';
+        src: url('/static/swiss-911-header.woff') format('woff');
       }
       @font-face {
         font-family: 'ITC Korinna';
@@ -127,6 +127,26 @@
           $(evt.target).parent().attr("class", "hidden");
           $(evt.target).parent().parent().text('')
           clueShowing = false;
+        }
+        evt.stopPropagation();
+      });
+
+      $(".hidden img").click((evt) => {
+        if (clueShowing) {
+          console.log('daily double')
+          var clue = $(evt.target).attr("data-clue");
+          console.log(clue);
+          var newClue = $(evt.target).parent().append('<p>' + clue + '<p>');
+          $(evt.target).remove();
+          newClue.click((evt) => {
+            if (clueShowing) {
+              console.log('daily double hidden')
+              $(evt.target).parent().attr("class", "hidden");
+              $(evt.target).parent().parent().text('')
+              clueShowing = false;
+            }
+            evt.stopPropagation();
+          });
         }
         evt.stopPropagation();
       });
